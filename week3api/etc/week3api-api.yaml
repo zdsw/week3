@@ -1,0 +1,9 @@
+Name: week3api-api
+Host: 0.0.0.0
+Port: 8888
+
+Week3Server:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: week3rpc.rpc

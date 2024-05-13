@@ -1,0 +1,109 @@
+syntax = "v1"
+//搜索
+type (
+	SearchRequest {
+		Index   string `form:"index"`
+		Keyword string `form:"keyword"`
+	}
+	//响应
+	SearchResponse {
+		Code string                 `json:"code"`
+		Msg  string                 `json:"msg"`
+		Data map[string]interface{} `json:"data"`
+	}
+)
+//多条件搜索
+type (
+	ManySearchRequest {
+		Index    string `form:"index"`
+		Keyword  string `form:"keyword"`
+		Keywords string `form:"keywords"`
+	}
+	//响应
+	ManySearchResponse {
+		Code string                 `json:"code"`
+		Msg  string                 `json:"msg"`
+		Data map[string]interface{} `json:"data"`
+	}
+)
+//分页搜索
+type (
+	PaginationSearchRequest {
+		Index    string `form:"index"`
+		Keyword  string `form:"keyword"`
+		Page     int64  `form:"page"`
+		PageSize int64  `form:"pageSize"`
+	}
+	//响应
+	PaginationSearchResponse {
+		Code string                 `json:"code"`
+		Msg  string                 `json:"msg"`
+		Data map[string]interface{} `json:"data"`
+	}
+)
+//数据同步
+type (
+	SynchronousRequest {
+		CourseName          string  `form:"courseName"`
+		Score               float64 `form:"score"`
+		MediumOfInstruction string  `form:"mediumOfInstruction"`
+		CourseDescription   string  `form:"courseDescription"`
+	}
+	//响应
+	SynchronousResponse {
+		Code string                 `json:"code"`
+		Msg  string                 `json:"msg"`
+		Data map[string]interface{} `json:"data"`
+	}
+)
+
+//上传
+type (
+	UploadRequest {
+		FileVersion string `form:"fileVersion"`
+		FileStatus  int64  `form:"fileStatus"`
+	}
+	//响应
+	UploadResponse {
+		Code string                 `json:"code"`
+		Msg  string                 `json:"msg"`
+		Data map[string]interface{} `json:"data"`
+	}
+)
+
+//回滚
+type (
+	RollbackRequest {
+		Id          int64  `form:"id"`
+		FileName    string `form:"fileName"`
+		FileVersion string `form:"fileVersion"`
+		FileStatus  int64  `form:"fileStatus"`
+	}
+	//响应
+	RollbackResponse {
+		Code string                 `json:"code"`
+		Msg  string                 `json:"msg"`
+		Data map[string]interface{} `json:"data"`
+	}
+)
+
+service week3api-api {
+	//搜索接口
+	@handler Search
+	post /search(SearchRequest) returns (SearchResponse)
+	//搜索接口
+	@handler ManySearch
+	post /many_search(ManySearchRequest) returns (ManySearchResponse)
+	//搜索接口
+	@handler Pagination
+	post /pagination_search(PaginationSearchRequest) returns (PaginationSearchResponse)
+	//数据同步接口
+	@handler Synchronous
+	post /synchronous(SynchronousRequest) returns (SynchronousResponse)
+	//上传接口
+	@handler Upload
+	post /upload(UploadRequest) returns (UploadResponse)
+	//上传接口
+	@handler Rollback
+	post /rollback(RollbackRequest) returns (RollbackResponse)
+}

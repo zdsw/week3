@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package week3rpc;
+option go_package="./week3rpc";
+//搜索
+message SearchRequest {
+  string Index    = 1;
+  string Keyword  = 2;
+}
+//响应
+message SearchResponse {
+  int64  Code = 1;
+  string Msg  = 2;
+  bytes  Data = 3;
+}
+
+//搜索
+message ManySearchRequest {
+  string Index    = 1;
+  string Keyword  = 2;
+  string Keywords  = 3;
+}
+//响应
+message ManySearchResponse {
+  int64  Code = 1;
+  string Msg  = 2;
+  bytes  Data = 3;
+}
+
+//分页
+message PaginationSearchRequest {
+  string Index    = 1;
+  string Keyword  = 2;
+  int64  Page     = 3;
+  int64  PageSize = 4;
+}
+//响应
+message PaginationSearchResponse {
+  int64  Code = 1;
+  string Msg  = 2;
+  bytes  Data = 3;
+}
+//es同步
+message SynchronousRequest {
+  string CourseName           = 1;
+  float   Score                = 2;
+  string  MediumOfInstruction  = 3;
+  string  CourseDescription    = 4;
+}
+//es同步响应
+message SynchronousResponse {
+  int64  Code = 1;
+  string Msg  = 2;
+  bytes  Data = 3;
+}
+
+//文件上传
+message UploadRequest {
+  string FileName     = 1;
+  string FileUrl      = 2;
+  string FileType     = 3;
+  string FileVersion  = 4;
+  int64  FileStatus   = 5;
+}
+//es同步响应
+message UploadResponse {
+  int64  FileId = 1;
+}
+
+
+//文件上传
+message RollbackRequest {
+  int64  Id           = 1;
+  string FileName      = 2;
+  string FileVersion  = 4;
+  int64  FileStatus   = 5;
+}
+//es同步响应
+message RollbackResponse {
+  int64  Code = 1;
+  string Msg  = 2;
+  bytes  Data = 3;
+}
+
+service Week3rpc {
+  //单条件搜索接口
+  rpc search(SearchRequest) returns(SearchResponse);
+  //多条件搜索接口
+  rpc many_search(ManySearchRequest) returns(ManySearchResponse);
+  //分页搜索接口
+  rpc PaginationSearch(PaginationSearchRequest) returns(PaginationSearchResponse);
+  //es同步
+  rpc synchronous(SynchronousRequest) returns(SynchronousResponse);
+  //上传
+  rpc upload(UploadRequest) returns(UploadResponse);
+  //回滚
+  rpc rollback(RollbackRequest) returns(RollbackResponse);
+}
